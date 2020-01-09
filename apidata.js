@@ -34,7 +34,12 @@ function initMap(){
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18,
   }).addTo(map);
+  addCountesToMap();
   authenticate();
+}
+function addCountesToMap(){
+    var geojsonLayer = new L.GeoJSON.AJAX("data/ukcounties.geojson");
+    geojsonLayer.addTo(map);
 }
 function getProducts() {
     const postBody = "{\"size\":100, \"keywords\":\"\"}";//, \"strings\":[{\"field\":\"sceneimagery\",\"value\":[\"*\"],\"operator\":\"or\"}]}";
@@ -60,18 +65,22 @@ function getProducts() {
     }
 }
 function getMissionById(id){
+    searchInAction = true;
      map.eachLayer(function (layer){
          map.removeLayer(layer);
     });
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18
     }).addTo(map);
-    
+    addCountesToMap();
+
+
     getGeoJson(id, function(geoJSONdata){
         addToMap(geoJSONdata);
-        searchInAction = true;
+        
         
     });
+
 
 }
 function getGeoJson(id, callback){
