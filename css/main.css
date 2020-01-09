@@ -128,7 +128,7 @@ width: 100%;
   margin: 4px;
 }
 
-input[type=text] {
+input[type=search] {
     height: 35px;
     width: 28.3%;
     margin-left: 4px;
@@ -136,6 +136,6 @@ input[type=text] {
     transition: width 0.4s ease-in-out;
 }
 
-input[type=text]:focus {
+input[type=search]:focus {
     width: 97%;
 }
