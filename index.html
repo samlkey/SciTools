@@ -36,14 +36,15 @@
         </div>
       <h1>SCI:Toolset Coverage of Data</h1>
       <div id = "searchBar">
-        <form role="search" onsubmit="mySearchFunction(event)">
+        <form role="search" onsubmit="return mySearchFunction(event)">
         <h2>Search for a Mission</h2>
         <input  id = "searchbar" type="search" class="missionSearch" placeholder="Enter MissionID..."/>
         <script>
           function mySearchFunction(e){
-            if(e.keyCode == 13){
+        
               getMissionById(document.getElementById('searchbar').value);
-            }
+            
+            return false; 
           }
         </script>
         </form>
