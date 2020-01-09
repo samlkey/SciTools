@@ -34,6 +34,7 @@ function initMap(){
     maxZoom: 18,
   }).addTo(map);
   authenticate();
+  addCountiesToMap();
 }
 function getProducts() {
     const postBody = "{\"size\":500, \"keywords\":\"\", \"strings\":[{\"field\":\"sceneimagery\",\"value\":[\"*\"],\"operator\":\"or\"}]}";
@@ -103,6 +104,7 @@ function getGeoJson(id, callback){
         }
     }
 }
+
 function addToMap(data){
     L.geoJSON(data, {
         onEachFeature: function(feature, layer) {
@@ -112,5 +114,9 @@ function addToMap(data){
             + '<br>Percentage Covered: ' + parseFloat(feature.properties.percentage.toFixed(6)) + "%");
         }
     }).addTo(map);
+}
+function addCountiesToMap(){
+    var geojsonLayer = new L.GeoJSON.AJAX("http://127.0.0.1:8887/data/ukcounties.geojson");    
+    geojsonLayer.addTo(map);
 }
 initMap();
