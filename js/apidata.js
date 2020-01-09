@@ -36,7 +36,7 @@ function initMap(){
   authenticate();
 }
 function getProducts() {
-    const postBody = "{\"size\":500, \"keywords\":\"\", \"strings\":[{\"field\":\"sceneimagery\",\"value\":[\"*\"],\"operator\":\"or\"}]}";
+    const postBody = "{\"size\":100, \"keywords\":\"\"}";//, \"strings\":[{\"field\":\"sceneimagery\",\"value\":[\"*\"],\"operator\":\"or\"}]}";
     let request = new XMLHttpRequest();
     request.open('POST','https://hallam.sci-toolset.com/discover/api/v1/products/search',true);
     request.setRequestHeader('Content-Type', 'application/json');
@@ -49,8 +49,8 @@ function getProducts() {
             var json = JSON.parse(request.responseText);
             console.log(json.results.searchresults.length);
             for(var x = 0; x < json.results.searchresults.length; x++){
-                console.log(x);
                 getGeoJson(json.results.searchresults[x].id,function(geoJSONdata){
+                    console.log(x);
                     imageData.push(geoJSONdata);
                 });
             }
@@ -96,9 +96,7 @@ function getGeoJson(id, callback){
                 },
                 "geometry" : json.product.result.footprint
             };
-            if((geojson.properties.missionid).includes("MS")){
                 addToMap(geojson);
-            }
             callback(geojson);
         }
     }
